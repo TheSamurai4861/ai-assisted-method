@@ -1,89 +1,240 @@
-# AI-Assisted Engineering Method
+# NØDE / AI-Assisted Engineering Method
 
-A lightweight engineering method for using AI coding agents with high useful autonomy while preserving human judgment, verification, and final control.
+**Human judgment. AI throughput.**
 
-## Why this exists
+<p align="center">
+  <img src="assets/method-001.png" alt="NØDE Method 001 — Human judgment. AI throughput." width="100%">
+</p>
 
-AI can implement software quickly. Speed without structure can distance developers from understanding, intentional design, and reliable verification. This method helps teams decide deliberately what people should own and what machines should accelerate.
+Fast implementation is useful.
 
-## Core principle
+Losing the ability to understand, verify or reject what gets built isn't.
 
-**Human judgment, AI throughput.** AI can inspect, research, propose, implement, test, and review at speed. People own intent, product direction, consequential creative and architecture choices, risk acceptance, and final acceptance. AI-generated code is a candidate change supported by evidence, not an established truth.
+This method gives coding agents room to move fast when work is clear, bounded, reversible and verifiable — while keeping human judgment on the decisions that actually matter.
 
-## Workflow
+---
 
-**INTENT → CLASSIFY → RISK → UNDERSTAND → SPEC → PLAN → BUILD → VERIFY → REVIEW → ACCEPT → LEARN**
-
-Classify the task and S/M/H risk first. The depth of SPEC, PLAN, verification, and review grows with risk. Small clear changes need a light process; M/H work needs verifiable acceptance criteria and an incremental plan. Invalidated assumptions return work to PLAN or SPEC. Human acceptance closes the task.
-
-## Autonomy
-
-Clear, bounded, reversible, low-impact, objectively verifiable work allows more agent autonomy. Ambiguous, subjective, architectural, security-sensitive, high-impact, destructive, or hard-to-reverse work needs more human judgment. An agent should bring consequential alternatives and trade-offs to the human, then execute the chosen direction without pausing for every ordinary step. Sensitive actions still follow [the security policy](.ai/SECURITY.md).
-
-## Quick start
-
-From the **project adopting the method**, use this one-command installation after this repository has been populated on GitHub. It requires [uv](https://docs.astral.sh/uv/getting-started/installation/) and Git:
+## Install
 
 ```sh
 uvx --from git+https://github.com/TheSamurai4861/ai-assisted-method.git ai-assisted-method
 ```
 
-The tool runs in an isolated environment and does not add a dependency to the adopting project. Add `--dry-run` to preview changes. It copies `.ai/` and `prompts/` into the current directory. If `AGENTS.md` already exists, it preserves the file and appends a short method reference; other repository instructions remain untouched. It stops before changing anything if an existing method or prompt file differs. Resolve any conflicting rules or files with human judgment. You can also pass an explicit target directory as the final argument.
+Preview changes first:
 
-From a local checkout, the dependency-free alternative is `python /path/to/ai-assisted-method/scripts/install.py`. On Windows, quote the path, for example `python "C:\path\to\ai-assisted-method\scripts\install.py"`.
+```sh
+uvx --from git+https://github.com/TheSamurai4861/ai-assisted-method.git ai-assisted-method --dry-run
+```
 
-Then:
+Local alternative:
 
-1. Ask your coding agent to apply [bootstrap-new-project.md](prompts/bootstrap-new-project.md). It examines existing project rules, reports conflicts, and adapts the project map and verification commands to observed facts.
-2. Review its changes to [PROJECT_MAP.md](.ai/PROJECT_MAP.md) and [VERIFICATION.md](.ai/VERIFICATION.md). Resolve any consequential rule conflicts.
-3. Start a task using [start-task.md](prompts/start-task.md) or the relevant [workflow](.ai/workflows/). The generic [method](.ai/METHOD.md) applies when no specialized workflow exists.
-4. Record M/H criteria and evidence with [TASK_TEMPLATE.md](.ai/TASK_TEMPLATE.md). Run relevant checks, review, and obtain human acceptance.
+```sh
+python /path/to/ai-assisted-method/scripts/install.py
+```
+
+The installer copies the method into the target repository without replacing existing project instructions blindly. Conflicts should be reviewed, not hidden.
+
+---
+
+## The idea
+
+AI should increase engineering throughput without taking ownership of engineering judgment.
+
+### Humans own
+
+- intent
+- problem definition
+- product direction
+- important creative choices
+- architecture trade-offs
+- taste and subjective quality
+- risk acceptance
+- difficult-to-reverse decisions
+- final acceptance
+
+### Agents accelerate
+
+- inspection
+- research
+- option generation
+- implementation
+- repetitive engineering work
+- testing
+- verification
+- failure analysis
+- review
+
+AI-generated code is a **candidate change**, not an established truth.
+
+---
+
+## Workflow
+
+```text
+INTENT
+  ↓
+CLASSIFY
+  ↓
+RISK
+  ↓
+UNDERSTAND
+  ↓
+SPEC
+  ↓
+PLAN
+  ↓
+BUILD
+  ↓
+VERIFY
+  ↓
+REVIEW
+  ↓
+ACCEPT
+  ↓
+LEARN
+```
+
+The process gets heavier only when the risk does.
+
+Small, clear and reversible changes should stay lightweight.
+
+Higher-risk work needs stronger acceptance criteria, deeper verification and more human review.
+
+If an assumption breaks, go back to `PLAN` or `SPEC` instead of pushing forward.
+
+---
+
+## Autonomy
+
+More AI autonomy when work is:
+
+```text
+clear · bounded · reversible · verifiable
+```
+
+More human judgment when work is:
+
+```text
+ambiguous · subjective · high-impact · hard to reverse
+```
+
+The agent may propose creative or architectural options.
+
+It should not silently own consequential decisions.
+
+Sensitive work still follows the project security rules in [`.ai/SECURITY.md`](.ai/SECURITY.md).
+
+---
+
+## Quick start
+
+After installing the method into a project:
+
+1. Run [`prompts/bootstrap-new-project.md`](prompts/bootstrap-new-project.md) with your coding agent.
+2. Review the generated project facts in [`.ai/PROJECT_MAP.md`](.ai/PROJECT_MAP.md).
+3. Configure real verification commands in [`.ai/VERIFICATION.md`](.ai/VERIFICATION.md).
+4. Start work with [`prompts/start-task.md`](prompts/start-task.md) or a specialized workflow.
+5. For medium/high-risk tasks, record acceptance criteria and evidence in [`.ai/TASK_TEMPLATE.md`](.ai/TASK_TEMPLATE.md).
+6. Verify, review and obtain human acceptance before calling the work complete.
+
+The generic [method](.ai/METHOD.md) applies whenever no specialized workflow is needed.
+
+---
 
 ## Repository structure
 
 | Path | Purpose |
 |---|---|
 | [`AGENTS.md`](AGENTS.md) | Short agent entrypoint and invariants |
-| [`.ai/METHOD.md`](.ai/METHOD.md) | Authoritative lifecycle, risk, autonomy, and acceptance rules |
-| [`.ai/PROJECT_MAP.md`](.ai/PROJECT_MAP.md) | Template for observed project facts |
-| [`.ai/VERIFICATION.md`](.ai/VERIFICATION.md) | Evidence policy and project check configuration |
-| [`.ai/SECURITY.md`](.ai/SECURITY.md) | Sensitive-action and least-privilege rules |
-| [`.ai/workflows/`](.ai/workflows/) | Specialized guidance where task type warrants it |
-| [`prompts/`](prompts/) | Concise task starters that apply the method |
-| [`examples/`](examples/) | Illustrative task records across S/M/H risk |
-| [`scripts/validate.py`](scripts/validate.py) | Dependency-free repository checks |
-| [`scripts/install.py`](scripts/install.py) | Dependency-free copy into an existing project |
-| [`pyproject.toml`](pyproject.toml) | Packaging for the remote `uvx` command |
-| [`.github/workflows/validate.yml`](.github/workflows/validate.yml) | Validation on GitHub for Linux and Windows |
+| [`.ai/METHOD.md`](.ai/METHOD.md) | Authoritative lifecycle, autonomy and acceptance rules |
+| [`.ai/PROJECT_MAP.md`](.ai/PROJECT_MAP.md) | Observed project facts |
+| [`.ai/VERIFICATION.md`](.ai/VERIFICATION.md) | Verification policy and project checks |
+| [`.ai/SECURITY.md`](.ai/SECURITY.md) | Sensitive actions and least-privilege rules |
+| [`.ai/workflows/`](.ai/workflows/) | Specialized task guidance |
+| [`prompts/`](prompts/) | Reusable task starters |
+| [`examples/`](examples/) | Example task records |
+| [`scripts/install.py`](scripts/install.py) | Installer |
+| [`scripts/validate.py`](scripts/validate.py) | Repository validation |
+| [`tests/`](tests/) | Method tooling tests |
+
+---
 
 ## Examples
 
-These are illustrative task records, not reports from production projects. They show where the agent can proceed and where human judgment is needed.
+The examples are illustrative task records, not production claims.
 
 | Example | Risk | Main lesson |
-|---|---|---|
-| [Stale CLI example](examples/MAINTENANCE_EXAMPLE.md) | S | Make a clear, reversible edit with minimal process |
-| [Weekly digest](examples/FEATURE_EXAMPLE.md) | M | Let the human choose product behavior, then implement it |
-| [Duplicate job investigation](examples/INVESTIGATION_EXAMPLE.md) | M initially | Separate diagnosis from a corrective change |
-| [Duplicate charge bug](examples/BUGFIX_EXAMPLE.md) | H | Verify a sensitive fix and its provider assumptions |
-| [Order-status migration](examples/MIGRATION_EXAMPLE.md) | H | Stage data changes and require approval for destructive cutover |
+|---|---:|---|
+| [Maintenance](examples/MAINTENANCE_EXAMPLE.md) | S | Keep clear, reversible work lightweight |
+| [Feature](examples/FEATURE_EXAMPLE.md) | M | Human chooses product behavior; agent implements |
+| [Investigation](examples/INVESTIGATION_EXAMPLE.md) | M | Separate diagnosis from correction |
+| [Bugfix](examples/BUGFIX_EXAMPLE.md) | H | Verify sensitive assumptions before acceptance |
+| [Migration](examples/MIGRATION_EXAMPLE.md) | H | Stage irreversible changes and require approval |
 
-An [observed installer case](examples/INSTALLER_CASE_STUDY.md) records a real repeat-run defect found by a test during this repository's preparation. It is separate from the fictional examples and does not claim external production use or final human acceptance.
+A real preparation defect found while building the installer is documented in [INSTALLER_CASE_STUDY.md](examples/INSTALLER_CASE_STUDY.md).
+
+---
 
 ## Try it on a real project
 
-Start with one clear S task, one ordinary M task, and one consequential H task when a genuine H task arises. For each, keep the task criteria, decisions, verification evidence, human interruptions, and any rework. Afterward, ask which checkpoints prevented a mistake and which added no value. Use [LEARN](.ai/METHOD.md) to change the smallest relevant rule or executable check. Publish a case study only with the project's permission and real evidence; the examples above do not substitute for that trial.
+Use the method on real work, then keep only what proves useful.
 
-For this repository, run `python scripts/validate.py` and `python -m unittest discover -s tests -v`. The same checks are configured in GitHub Actions for Linux and Windows.
+Track:
+
+- task criteria
+- human decisions
+- verification evidence
+- interruptions
+- rework
+- failures the process caught
+- steps that added no value
+
+Then use `LEARN` to improve the smallest relevant rule or executable check.
+
+The method should evolve from observed failures, not accumulate process for its own sake.
+
+---
+
+## Validation
+
+For this repository:
+
+```sh
+python scripts/validate.py
+python -m unittest discover -s tests -v
+```
+
+The same checks run through GitHub Actions on Linux and Windows.
+
+---
 
 ## What this is not
 
-This method does not guarantee correctness, replace engineering expertise, demand a large spec for every task, require human approval for each trivial agent action, treat green tests as complete proof, or grant autonomy where decisions cannot be safely verified.
+This method does not:
+
+- guarantee correctness
+- replace engineering expertise
+- require a large spec for every task
+- require approval for every trivial agent action
+- treat green tests as complete proof
+- grant autonomy where decisions cannot be safely verified
+
+---
 
 ## Status
 
-This is an evolving method, intended to improve through observed failures and practical use. It is not a universal standard or a claim of validation across every team.
+This is an evolving method.
+
+It is meant to improve through real use, real failures and evidence.
+
+It is not a universal standard.
+
+---
 
 ## License
 
-The code and documentation are available under the [MIT License](LICENSE).
+MIT — see [LICENSE](LICENSE).
+
+---
+
+<sub>NØDE — building and testing things that shouldn't exist yet.</sub>
