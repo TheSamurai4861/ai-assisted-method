@@ -1,0 +1,24 @@
+[build-system]
+requires = ["hatchling>=1.27,<2"]
+build-backend = "hatchling.build"
+
+[project]
+name = "ai-assisted-method"
+version = "0.1.0"
+description = "A lightweight AI-assisted engineering method with human decision ownership"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+dependencies = []
+
+[project.scripts]
+ai-assisted-method = "ai_assisted_method.installer:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["ai_assisted_method"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"scripts/install.py" = "ai_assisted_method/installer.py"
+"AGENTS.md" = "ai_assisted_method/templates/AGENTS.md"
+".ai" = "ai_assisted_method/templates/.ai"
+"prompts" = "ai_assisted_method/templates/prompts"

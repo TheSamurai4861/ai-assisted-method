@@ -1,0 +1,23 @@
+# Local source and extraction material
+method.zip
+_method_audit/
+
+# Local preparation notes
+PREP_REPORT.md
+
+# Editor, OS, and temporary files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.tmp
+*~
+__pycache__/
+*.pyc
+_uv_cache/
+_build/
+_package_smoke/
+dist/
+*.egg-info/
+.venv/
