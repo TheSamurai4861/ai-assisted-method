@@ -14,12 +14,6 @@ Open a terminal **in the root of the project that will use the method**. Install
 uvx --from "git+https://github.com/TheSamurai4861/ai-assisted-method.git" ai-assisted-method
 ```
 
-While the Project Resources changes are only on the `feature/project-resources` branch, try this guide's version with:
-
-```sh
-uvx --from "git+https://github.com/TheSamurai4861/ai-assisted-method.git@feature/project-resources" ai-assisted-method
-```
-
 To preview a specific installation mode without changing files, add `--dry-run` and the mode. If files differ, the interactive installer offers **Update**, **Separate**, **Replace**, or **Cancel**. In a non-interactive shell, pass `--mode` explicitly.
 
 | Situation | Command suffix | What happens |
