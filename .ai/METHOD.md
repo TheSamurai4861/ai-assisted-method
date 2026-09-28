@@ -159,6 +159,12 @@ Do not modify code merely to discover what the code already explains.
 
 For `INVESTIGATION`, diagnosis must remain separate from implementation until sufficient evidence exists.
 
+### Project resources
+
+During UNDERSTAND, check whether `.ai/RESOURCES.md` has an approved reference relevant to the task. Consult only relevant entries before SPEC or PLAN decisions they can inform. BUILD follows the chosen direction rather than applying a reference mechanically; VERIFY and REVIEW may use it as supporting evidence. This is not another required phase, and trivial unrelated work needs no resource lookup.
+
+Priority when guidance conflicts: explicit human intent and decisions, project rules, observed constraints, current official technology documentation, approved resources, then generic principles. A resource is a reference, not an authority over human judgment. If an important reference may be stale, verify its currency when possible. Add, replace, or remove registry entries only with explicit human approval; use the resource-discovery prompt when asked to discover candidates.
+
 ---
 
 ## 5. SPEC

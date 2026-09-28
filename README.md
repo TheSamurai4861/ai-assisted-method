@@ -36,7 +36,7 @@ Run the command from the project adopting the method. If method files already ex
 
 | Choice | Effect |
 |---|---|
-| **Update** | For an existing AI-Assisted method: back up and update rules, including `SECURITY.md`, while preserving the project's `PROJECT_MAP.md` and `VERIFICATION.md` |
+| **Update** | For an existing AI-Assisted method: back up and update rules, including `SECURITY.md`, while preserving the project's `PROJECT_MAP.md`, `VERIFICATION.md`, and approved `RESOURCES.md` |
 | **Separate** | Keep all existing files and stage this method under `.ai/ai-assisted-method/` for comparison |
 | **Replace** | Back up and replace all matching method files, including security rules and project-specific templates |
 
@@ -141,9 +141,10 @@ After installing the method into a project:
 1. Run [`prompts/bootstrap-new-project.md`](prompts/bootstrap-new-project.md) with your coding agent.
 2. Review the generated project facts in [`.ai/PROJECT_MAP.md`](.ai/PROJECT_MAP.md).
 3. Configure real verification commands in [`.ai/VERIFICATION.md`](.ai/VERIFICATION.md).
-4. Start work with [`prompts/start-task.md`](prompts/start-task.md) or a specialized workflow.
-5. For medium/high-risk tasks, record acceptance criteria and evidence in [`.ai/TASK_TEMPLATE.md`](.ai/TASK_TEMPLATE.md).
-6. Verify, review and obtain human acceptance before calling the work complete.
+4. Keep [`.ai/RESOURCES.md`](.ai/RESOURCES.md) empty until you approve references relevant to your project.
+5. Start work with [`prompts/start-task.md`](prompts/start-task.md) or a specialized workflow.
+6. For medium/high-risk tasks, record acceptance criteria and evidence in [`.ai/TASK_TEMPLATE.md`](.ai/TASK_TEMPLATE.md).
+7. Verify, review and obtain human acceptance before calling the work complete.
 
 The generic [method](.ai/METHOD.md) applies whenever no specialized workflow is needed.
 
@@ -156,6 +157,7 @@ The generic [method](.ai/METHOD.md) applies whenever no specialized workflow is 
 | [`AGENTS.md`](AGENTS.md) | Short agent entrypoint and invariants |
 | [`.ai/METHOD.md`](.ai/METHOD.md) | Authoritative lifecycle, autonomy and acceptance rules |
 | [`.ai/PROJECT_MAP.md`](.ai/PROJECT_MAP.md) | Observed project facts |
+| [`.ai/RESOURCES.md`](.ai/RESOURCES.md) | Human-approved project references |
 | [`.ai/VERIFICATION.md`](.ai/VERIFICATION.md) | Verification policy and project checks |
 | [`.ai/SECURITY.md`](.ai/SECURITY.md) | Sensitive actions and least-privilege rules |
 | [`.ai/workflows/`](.ai/workflows/) | Specialized task guidance |
@@ -164,6 +166,12 @@ The generic [method](.ai/METHOD.md) applies whenever no specialized workflow is 
 | [`scripts/install.py`](scripts/install.py) | Installer |
 | [`scripts/validate.py`](scripts/validate.py) | Repository validation |
 | [`tests/`](tests/) | Method tooling tests |
+
+### Project resources
+
+For a project that would benefit from a few trusted references, ask your agent: **“What resources would be useful for this project?”** Use [`prompts/resource-discovery.md`](prompts/resource-discovery.md): the agent inspects the real stack, researches and compares authoritative sources when online, proposes a short list, and waits for your approval before adding anything to `.ai/RESOURCES.md`.
+
+Agents consult approved references only when relevant. A resource informs a decision; it does not override your direction, project rules, observed constraints, or current official documentation. The aim is a small, useful selection, not a comprehensive knowledge base.
 
 ---
 

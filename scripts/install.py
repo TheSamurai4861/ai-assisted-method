@@ -10,16 +10,25 @@ import sys
 DIRECTORY = Path(__file__).resolve().parent
 SOURCE = DIRECTORY.parent if DIRECTORY.name == "scripts" else DIRECTORY / "templates"
 NAMESPACE = Path(".ai") / "ai-assisted-method"
-PROJECT_FILES = {Path(".ai/PROJECT_MAP.md"), Path(".ai/VERIFICATION.md")}
+PROJECT_FILES = {Path(".ai/PROJECT_MAP.md"), Path(".ai/VERIFICATION.md"), Path(".ai/RESOURCES.md")}
 START = "<!-- ai-assisted-engineering-method:start -->"
 END = "<!-- ai-assisted-engineering-method:end -->"
-LEGACY_BRIDGE = f"""{START}
+PREVIOUS_BRIDGE = f"""{START}
 ## AI-Assisted Engineering Method
 
 Read `.ai/METHOD.md` for the task lifecycle, `.ai/SECURITY.md` for sensitive actions,
 and `.ai/VERIFICATION.md` for checks. Continue to follow the existing project rules
 in this file and other repository instructions. If a generic method rule conflicts
 with a project rule, surface the conflict for human resolution before acting.
+{END}
+""".lstrip()
+LEGACY_BRIDGE = f"""{START}
+## AI-Assisted Engineering Method
+
+Read `.ai/METHOD.md` for the task lifecycle, `.ai/SECURITY.md` for sensitive actions,
+`.ai/VERIFICATION.md` for checks, and `.ai/RESOURCES.md` for approved references.
+Continue to follow existing project rules. Surface material conflicts for human
+resolution before acting.
 {END}
 """.lstrip()
 
@@ -31,7 +40,7 @@ def bridge(separate: bool) -> str:
 ## AI-Assisted Engineering Method
 
 A separate copy is staged in `.ai/ai-assisted-method/`. Read its `METHOD.md`,
-`SECURITY.md`, and `VERIFICATION.md` alongside the existing project rules.
+`SECURITY.md`, `VERIFICATION.md`, and `RESOURCES.md` alongside the existing project rules.
 Start with `.ai/ai-assisted-method/prompts/bootstrap-new-project.md`.
 Do not treat this copy as replacing existing rules. Surface consequential
 differences for human resolution before changing the project's direction.
@@ -72,7 +81,7 @@ def agent_change(current: bytes | None, separate: bool) -> tuple[bytes | None, s
     if start >= 0:
         end += len(END)
         current_block = current[start:end].decode("utf-8", errors="replace").replace("\r\n", "\n")
-        known = {bridge(False).strip(), bridge(True).strip()}
+        known = {PREVIOUS_BRIDGE.strip(), bridge(False).strip(), bridge(True).strip()}
         if current_block not in known:
             return None, "Customized managed block in AGENTS.md was preserved; review its path."
         replacement = desired.strip().replace("\n", newline.decode()).encode("utf-8")
@@ -95,7 +104,7 @@ def choose_mode(conflicts: list[Path], args: argparse.Namespace) -> str | None:
     if len(conflicts) > 8:
         print(f"  ... and {len(conflicts) - 8} more")
     print("Choose how to proceed:")
-    print("  1. Update current method: back up rules (including security); keep project map and verification.")
+    print("  1. Update current method: back up rules (including security); keep project map, verification, and resources.")
     print("  2. Install separately: preserve everything under .ai/ai-assisted-method/.")
     print("  3. Replace method files: back up and overwrite all matching paths, including project settings.")
     print("  4. Cancel.")

@@ -9,9 +9,10 @@ from urllib.parse import unquote
 ROOT = Path(__file__).resolve().parents[1]
 REQUIRED = [
     "README.md", "AGENTS.md", "LICENSE", "pyproject.toml",
-    ".ai/METHOD.md", ".ai/PROJECT_MAP.md",
+    ".ai/METHOD.md", ".ai/PROJECT_MAP.md", ".ai/RESOURCES.md",
     ".ai/TASK_TEMPLATE.md", ".ai/VERIFICATION.md", ".ai/REVIEW_TEMPLATE.md",
     ".ai/SECURITY.md", ".ai/workflows/FEATURE.md", "prompts/start-task.md",
+    "prompts/resource-discovery.md",
     "examples/BUGFIX_EXAMPLE.md", "examples/FEATURE_EXAMPLE.md",
     "examples/INVESTIGATION_EXAMPLE.md", "examples/MAINTENANCE_EXAMPLE.md",
     "examples/MIGRATION_EXAMPLE.md", "examples/INSTALLER_CASE_STUDY.md",

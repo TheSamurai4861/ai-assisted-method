@@ -40,7 +40,9 @@ class InstallTests(unittest.TestCase):
             (self.project / "AGENTS.md").read_bytes(), (ROOT / "AGENTS.md").read_bytes()
         )
         self.assertTrue((self.project / ".ai" / "METHOD.md").is_file())
+        self.assertTrue((self.project / ".ai" / "RESOURCES.md").is_file())
         self.assertTrue((self.project / "prompts" / "start-task.md").is_file())
+        self.assertTrue((self.project / "prompts" / "resource-discovery.md").is_file())
 
         second = self.run_installer()
         self.assertEqual(second.returncode, 0, second.stderr)
@@ -90,6 +92,8 @@ class InstallTests(unittest.TestCase):
         self.assertEqual((self.project / ".ai" / "METHOD.md").read_text(), "Another method\n")
         staged = self.project / ".ai" / "ai-assisted-method"
         self.assertTrue((staged / "METHOD.md").is_file())
+        self.assertTrue((staged / "RESOURCES.md").is_file())
+        self.assertTrue((staged / "prompts" / "resource-discovery.md").is_file())
         self.assertIn(
             ".ai/ai-assisted-method/METHOD.md",
             (staged / "prompts" / "start-task.md").read_text(encoding="utf-8"),
@@ -108,6 +112,7 @@ class InstallTests(unittest.TestCase):
         (self.project / ".ai" / "METHOD.md").write_bytes(old_method)
         (self.project / ".ai" / "PROJECT_MAP.md").write_text("Observed app facts\n")
         (self.project / ".ai" / "VERIFICATION.md").write_text("Real checks\n")
+        (self.project / ".ai" / "RESOURCES.md").write_text("# Approved project references\n")
         (self.project / ".ai" / "SECURITY.md").write_text("Local security rule\n")
         (self.project / ".ai" / "TASK_TEMPLATE.md").write_text("Local task template\n")
 
@@ -119,6 +124,7 @@ class InstallTests(unittest.TestCase):
         )
         self.assertEqual((self.project / ".ai" / "PROJECT_MAP.md").read_text(), "Observed app facts\n")
         self.assertEqual((self.project / ".ai" / "VERIFICATION.md").read_text(), "Real checks\n")
+        self.assertEqual((self.project / ".ai" / "RESOURCES.md").read_text(), "# Approved project references\n")
         self.assertEqual(
             (self.project / ".ai" / "SECURITY.md").read_bytes(),
             (ROOT / ".ai" / "SECURITY.md").read_bytes(),
@@ -128,6 +134,29 @@ class InstallTests(unittest.TestCase):
         self.assertEqual(backups[0].read_bytes(), old_method)
         self.assertEqual((backups[0].parent / "SECURITY.md").read_text(), "Local security rule\n")
         self.assertTrue((self.project / ".ai" / "ai-assisted-method-backups" / ".gitignore").is_file())
+
+    def test_update_migrates_previous_agent_bridge(self):
+        spec = importlib.util.spec_from_file_location("method_installer", INSTALLER)
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        (self.project / "AGENTS.md").write_text(
+            "# Project rules\n\nKeep the API stable.\n\n" + module.PREVIOUS_BRIDGE,
+            encoding="utf-8",
+        )
+        (self.project / ".ai").mkdir()
+        (self.project / ".ai" / "METHOD.md").write_text("# AI-Assisted prior method\n")
+
+        first = self.run_installer("--mode", "update")
+        self.assertEqual(first.returncode, 0, first.stderr)
+        updated = (self.project / "AGENTS.md").read_text(encoding="utf-8")
+        self.assertIn("Keep the API stable.", updated)
+        self.assertIn(".ai/RESOURCES.md", updated)
+        self.assertTrue((self.project / ".ai" / "RESOURCES.md").is_file())
+        self.assertTrue((self.project / "prompts" / "resource-discovery.md").is_file())
+        self.assertEqual(updated.count(module.START), 1)
+        second = self.run_installer("--mode", "update")
+        self.assertEqual(second.returncode, 0, second.stderr)
+        self.assertIn("Planned changes: 0", second.stdout)
 
     def test_interactive_menu_accepts_separate_choice(self):
         spec = importlib.util.spec_from_file_location("method_installer", INSTALLER)

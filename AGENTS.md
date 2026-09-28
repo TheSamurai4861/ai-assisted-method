@@ -11,3 +11,4 @@ Read [`.ai/METHOD.md`](.ai/METHOD.md) before significant work. It is the authori
 - Verify against acceptance criteria. Green tests are evidence, not acceptance.
 - Require independent review for H work. Never claim `DONE` before required review, verification, and human acceptance.
 - Use least privilege. Obtain explicit human approval for sensitive or difficult-to-reverse actions.
+- `.ai/RESOURCES.md` lists human-approved references. Consult an entry before an important decision in its scope, without loading the whole registry for trivial work. Resources never override project rules or human judgment.
