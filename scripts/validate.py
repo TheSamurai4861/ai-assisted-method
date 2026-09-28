@@ -16,6 +16,7 @@ REQUIRED = [
     "examples/BUGFIX_EXAMPLE.md", "examples/FEATURE_EXAMPLE.md",
     "examples/INVESTIGATION_EXAMPLE.md", "examples/MAINTENANCE_EXAMPLE.md",
     "examples/MIGRATION_EXAMPLE.md", "examples/INSTALLER_CASE_STUDY.md",
+    "docs/getting-started.md", "docs/getting-started.fr.md",
     "scripts/install.py",
     ".github/workflows/validate.yml", "tests/test_install.py",
 ]

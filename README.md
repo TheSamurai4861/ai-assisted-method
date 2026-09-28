@@ -12,6 +12,8 @@ Losing the ability to understand, verify or reject what gets built isn't.
 
 This method gives coding agents room to move fast when work is clear, bounded, reversible and verifiable — while keeping human judgment on the decisions that actually matter.
 
+**New to the method?** Follow the practical guide: [Getting started](docs/getting-started.md) · [Bien démarrer](docs/getting-started.fr.md).
+
 ---
 
 ## Install
@@ -163,6 +165,7 @@ The generic [method](.ai/METHOD.md) applies whenever no specialized workflow is 
 | [`.ai/workflows/`](.ai/workflows/) | Specialized task guidance |
 | [`prompts/`](prompts/) | Reusable task starters |
 | [`examples/`](examples/) | Example task records |
+| [`docs/`](docs/) | Getting started guides in English and French |
 | [`scripts/install.py`](scripts/install.py) | Installer |
 | [`scripts/validate.py`](scripts/validate.py) | Repository validation |
 | [`tests/`](tests/) | Method tooling tests |
