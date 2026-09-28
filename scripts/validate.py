@@ -38,6 +38,8 @@ for doc in ROOT.rglob("*.md"):
             errors.append(f"Broken link: {doc.relative_to(ROOT)} -> {target}")
     for reference in ROOT_REFERENCE.findall(content):
         reference = reference.rstrip(".")
+        if reference.startswith((".ai/ai-assisted-method/", ".ai/ai-assisted-method-backups/")):
+            continue  # Paths created in an adopting project, not in this source repository.
         if not (ROOT / reference).exists():
             errors.append(f"Missing repository reference: {doc.relative_to(ROOT)} -> {reference}")
 

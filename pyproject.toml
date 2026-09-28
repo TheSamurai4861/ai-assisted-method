@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "ai-assisted-method"
-version = "0.1.0"
+version = "0.1.1"
 description = "A lightweight AI-assisted engineering method with human decision ownership"
 readme = "README.md"
 requires-python = ">=3.10"

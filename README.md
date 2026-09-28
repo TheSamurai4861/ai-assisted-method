@@ -32,7 +32,15 @@ Local alternative:
 python /path/to/ai-assisted-method/scripts/install.py
 ```
 
-The installer copies the method into the target repository without replacing existing project instructions blindly. Conflicts should be reviewed, not hidden.
+Run the command from the project adopting the method. If method files already exist, the installer shows three choices:
+
+| Choice | Effect |
+|---|---|
+| **Update** | For an existing AI-Assisted method: back up and update rules, including `SECURITY.md`, while preserving the project's `PROJECT_MAP.md` and `VERIFICATION.md` |
+| **Separate** | Keep all existing files and stage this method under `.ai/ai-assisted-method/` for comparison |
+| **Replace** | Back up and replace all matching method files, including security rules and project-specific templates |
+
+The installer never chooses between conflicting rule sets silently. In a non-interactive shell, add `--mode update`, `--mode separate`, or `--mode replace` to the command. Backups are stored under `.ai/ai-assisted-method-backups/`. Existing `AGENTS.md` instructions are preserved; the installer adds or updates only its own reference block.
 
 ---
 
